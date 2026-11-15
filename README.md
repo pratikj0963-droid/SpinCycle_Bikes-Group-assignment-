@@ -209,8 +209,8 @@ The following screenshots demonstrate the application and API requests.
 | Member | Responsibility |
 |---|---|
 | Pratik Jadhav | Server setup and route configuration |
-| Jahnavi Reddy | SQLite database and relationships |
-| Eekshitha Naidu | REST API endpoints |
+| Eekshitha Naidu | SQLite database and relationships |
+| Jahnavi Reddy | REST API endpoints |
 | Rishitha Reddy | Input validation and Smart Search |
 | Hemanth Kumar | Postman testing and documentation |
 
