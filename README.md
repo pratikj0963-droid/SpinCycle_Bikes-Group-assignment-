@@ -1,158 +1,46 @@
 # SpinCycle Bikes
-### Backend Development Fundamentals — Group Assignment
 
-**Assignment ID:** ST-AIDE2A-G03  
-**Theme:** Campus Bike Share  
-**Technology:** Node.js, Express.js, SQLite  
-**API Testing:** Postman
+**Campus Bike Share — Backend API**
 
----
+A RESTful backend for managing campus bike rentals, riders, and bicycles. Built with Node.js, Express, and SQLite as part of **Backend Development Fundamentals — Group Assignment**.
 
-## 1. Project Overview
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-000000?style=flat&logo=express&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat&logo=sqlite&logoColor=white)
+![Postman](https://img.shields.io/badge/API%20Testing-FF6C37?style=flat&logo=postman&logoColor=white)
 
-SpinCycle Bikes is a backend application developed to manage a campus bicycle-sharing system.
+**Assignment ID:** `ST-AIDE2A-G03`
 
-The project replaces the traditional paper-based notebook used to track campus bike rentals. Instead of manually recording rider details, bike information, and rental history, the application stores and manages this information in an SQLite database.
+## Overview
 
-The system provides REST APIs to manage riders, bikes, and rentals. It also includes search functionality, input validation, database relationships, and rental history management.
+SpinCycle Bikes provides APIs to manage a campus bicycle-sharing system. It replaces manual rental record-keeping with a backend application that stores rider, bike, and rental information in a relational SQLite database.
 
-The main objective of this project is to demonstrate practical backend development using Node.js, Express.js, SQLite, and Postman.
+### Features
 
-## 2. Problem Statement
+- **Bike Management:** Create, view, update, and delete bikes.
+- **Rider Management:** Register riders and retrieve rider information.
+- **Rental Management:** Create rentals, view rental records, and record bike returns.
+- **Smart Search:** Search bikes by name or type using partial, case-insensitive keyword matching.
+- **Input Validation:** Validate incoming data and handle invalid requests.
+- **Relational Database:** Use primary keys, foreign keys, and SQL JOINs to connect records.
+- **Rental Protection:** Prevent deletion of bikes referenced by rental records.
 
-Traditional campus bike-sharing systems may depend on physical registers or notebooks to maintain rental information.
+## Smart Search
 
-This approach can make it difficult to:
-- Maintain rider and bike information.
-- Search for a particular bike.
-- Track rental history.
-- Identify which rider rented a particular bike.
-- Update or retrieve records efficiently.
-
-SpinCycle Bikes provides a centralized digital backend system to manage these operations through REST APIs.
-
-## 3. Project Objectives
-
-The main objectives are:
-
-1. Develop a backend application using Node.js and Express.js.
-2. Create a relational SQLite database.
-3. Implement CRUD operations for bikes.
-4. Manage rider information.
-5. Create and retrieve rental records.
-6. Implement SQL JOIN operations to display combined rental details.
-7. Validate incoming data.
-8. Implement the assigned Smart Search feature.
-9. Test API endpoints using Postman.
-10. Document the application and its functionality.
-
-## 4. Technology Stack
-
-| Technology | Purpose |
-|---|---|
-| Node.js | JavaScript runtime environment |
-| Express.js | Backend framework |
-| SQLite | Relational database |
-| SQL | Database queries and relationships |
-| JavaScript | Application logic |
-| Postman | API testing |
-| npm | Package management |
-| Git / GitHub | Version control and project sharing |
-
-## 5. Main Features
-
-### 5.1 Rider Management
-
-The application supports:
-- Registering new riders.
-- Retrieving all riders.
-- Retrieving an individual rider by ID.
-- Validating rider names and email addresses.
-- Preventing duplicate email registrations.
-
-### 5.2 Bike Management
-
-The bike module provides complete CRUD functionality:
-
-- Create: Add a new bike.
-- Read: Retrieve all bikes or one bike.
-- Update: Modify existing bike details.
-- Delete: Delete a bike when rental records do not reference it.
-
-Each bike contains a unique ID, name, type, and creation timestamp.
-
-### 5.3 Rental Management
-
-The rental module supports:
-- Creating rental records.
-- Retrieving all rentals.
-- Retrieving individual rental records.
-- Displaying rental details with rider and bike names.
-- Marking rentals as returned.
-
-### 5.4 Input Validation
-
-Validation prevents invalid data from being stored in the database.
-
-Examples include:
-- Bike name cannot be empty.
-- Bike type cannot be empty.
-- Rider name cannot be empty.
-- Email must be valid.
-- Duplicate email addresses are not accepted.
-- Rental requests must reference existing riders and bikes.
-
-### 5.5 Error Handling
-
-The application uses HTTP status codes to communicate API results.
-
-| Status Code | Meaning |
-|---|---|
-| 200 | Request completed successfully |
-| 201 | New resource created |
-| 400 | Invalid or missing input |
-| 404 | Requested record or route not found |
-| 409 | Conflict with existing database records |
-| 500 | Unexpected server or database error |
-
-## 6. Special Assignment Requirement — Smart Search
-
-**Assignment ID: ST-AIDE2A-G03**
-
-The special twist assigned to this group is **Smart Search**.
-
-This feature allows users to search for bikes using a keyword. The search checks both the bike name and bike type.
-
-### How Smart Search Works
-
-The API accepts a query parameter called `q`.
-
-Example:
+The assignment-specific requirement is implemented through the `q` query parameter.
 
 ```http
 GET /bikes?q=road
 ```
 
-The search supports:
-- Searching by bike name.
-- Searching by bike type.
-- Case-insensitive matching.
-- Partial keyword matching.
-
-For example, searching for `road`, `ROAD`, or `oad` can return matching bike records.
-
-### Smart Search Test Cases
-
-| Request | Expected Result |
+| Search | Expected result |
 |---|---|
-| `/bikes?q=bike` | Matching bikes returned |
-| `/bikes?q=BIKE` | Matching bikes returned |
-| `/bikes?q=zzz` | Empty result with Nothing found |
-| `/bikes` | All bikes returned |
+| `/bikes?q=bike` | Matching bikes |
+| `/bikes?q=BIKE` | Same case-insensitive matching |
+| `/bikes?q=zzz` | No matching records |
+| `/bikes` | All bikes |
 
-All these search responses use HTTP status `200`.
-
-### Expected Response When No Bike Matches
+When no results are found:
 
 ```json
 {
@@ -161,87 +49,78 @@ All these search responses use HTTP status `200`.
 }
 ```
 
-### Importance of This Feature
+## Tech Stack
 
-Smart Search makes it easier to find bikes without manually checking the complete bike list.
+| Technology | Usage |
+|---|---|
+| Node.js | JavaScript runtime |
+| Express.js | REST API framework |
+| SQLite | Database |
+| SQL | Queries and relationships |
+| Postman | API testing |
+| Git & GitHub | Version control |
 
-It also ensures that users can search using partial keywords and different letter cases.
+## Getting Started
 
-This is the main assignment-specific feature and should be highlighted during the project demonstration.
+### Prerequisites
 
-## 7. Database Design
+- Node.js and npm
+- Git
+- Postman (for API testing)
 
-The application uses SQLite to store information in three related tables.
+### Installation
 
-### 7.1 Riders Table
+```bash
+git clone https://github.com/pratikj0963-droid/SpinCycle_Bikes-Group-assignment-.git
+cd SpinCycle_Bikes-Group-assignment-
+npm install
+```
 
-Stores information about registered riders.
+### Run the server
 
-| Column | Type | Description |
-|---|---|---|
-| id | INTEGER PRIMARY KEY | Unique rider ID |
-| name | TEXT | Rider name |
-| email | TEXT UNIQUE | Unique email address |
-| created_at | TEXT | Creation timestamp |
+```bash
+npm start
+```
 
-### 7.2 Bikes Table
+For development:
 
-Stores information about campus bikes.
+```bash
+npm run dev
+```
 
-| Column | Type | Description |
-|---|---|---|
-| id | INTEGER PRIMARY KEY | Unique bike ID |
-| name | TEXT | Bike name |
-| type | TEXT | Bike category |
-| created_at | TEXT | Creation timestamp |
-
-### 7.3 Rentals Table
-
-Stores bicycle rental information.
-
-| Column | Type | Description |
-|---|---|---|
-| id | INTEGER PRIMARY KEY | Unique rental ID |
-| rider_id | INTEGER | Foreign key referencing riders |
-| bike_id | INTEGER | Foreign key referencing bikes |
-| rental_date | TEXT | Rental timestamp |
-| return_date | TEXT | Return timestamp; NULL if not returned |
-
-### 7.4 Database Relationships
-
-The database uses foreign keys to maintain relationships.
-
-- One rider can have multiple rental records.
-- One bike can appear in multiple rental records.
-- Each rental belongs to one rider and one bike.
-
-The rentals table connects the riders and bikes tables.
-
-### 7.5 SQL JOIN Functionality
-
-The application provides an endpoint that retrieves rental information together with the rider's name and bike's name.
-
-This functionality uses SQL JOIN operations to combine information from multiple tables.
-
-## 8. API Documentation
-
-**Base URL:**
+The API runs at:
 
 ```text
 http://localhost:3000
 ```
 
-### 8.1 Bike APIs
+The SQLite database and required tables are initialized automatically when the server starts.
 
-| Method | Endpoint | Description | Success Code |
-|---|---|---|---|
-| GET | `/bikes` | Retrieve all bikes | 200 |
-| GET | `/bikes/:id` | Retrieve one bike | 200 |
-| POST | `/bikes` | Add a new bike | 201 |
-| PUT | `/bikes/:id` | Update a bike | 200 |
-| DELETE | `/bikes/:id` | Delete a bike | 200 |
+## API Reference
 
-Example bike request:
+All endpoints use the base URL `http://localhost:3000`.
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/` | API welcome message |
+| GET | `/bikes` | Get all bikes |
+| GET | `/bikes?q=word` | Search bikes |
+| GET | `/bikes/:id` | Get a bike by ID |
+| POST | `/bikes` | Add a bike |
+| PUT | `/bikes/:id` | Update a bike |
+| DELETE | `/bikes/:id` | Delete a bike |
+| GET | `/riders` | Get all riders |
+| GET | `/riders/:id` | Get a rider by ID |
+| POST | `/riders` | Register a rider |
+| GET | `/rentals` | Get all rentals |
+| GET | `/rentals/:id` | Get a rental by ID |
+| POST | `/rentals` | Create a rental |
+| GET | `/rentals/details` | Get joined rental details |
+| POST | `/rentals/:id/return` | Record a bike return |
+
+### Example request bodies
+
+**Add a bike**
 
 ```json
 {
@@ -250,15 +129,7 @@ Example bike request:
 }
 ```
 
-### 8.2 Rider APIs
-
-| Method | Endpoint | Description | Success Code |
-|---|---|---|---|
-| GET | `/riders` | Retrieve all riders | 200 |
-| GET | `/riders/:id` | Retrieve one rider | 200 |
-| POST | `/riders` | Register a rider | 201 |
-
-Example rider request:
+**Register a rider**
 
 ```json
 {
@@ -267,17 +138,7 @@ Example rider request:
 }
 ```
 
-### 8.3 Rental APIs
-
-| Method | Endpoint | Description | Success Code |
-|---|---|---|---|
-| GET | `/rentals` | Retrieve all rentals | 200 |
-| GET | `/rentals/:id` | Retrieve one rental | 200 |
-| POST | `/rentals` | Create a rental | 201 |
-| GET | `/rentals/details` | Retrieve joined rental details | 200 |
-| POST | `/rentals/:id/return` | Mark rental as returned | 200 |
-
-Example rental request:
+**Create a rental**
 
 ```json
 {
@@ -286,342 +147,80 @@ Example rental request:
 }
 ```
 
-The referenced rider and bike must already exist.
+## Database Structure
 
-## 9. Project Setup and Execution
+The application uses three related tables:
 
-### Prerequisites
+- **riders** — stores rider information.
+- **bikes** — stores bicycle information.
+- **rentals** — connects riders and bikes through foreign keys and stores rental and return dates.
 
-- Node.js (LTS version)
-- npm
-- Visual Studio Code
-- Postman
+A rental details endpoint uses SQL JOINs to retrieve related rider and bike information.
 
-### Installation
-
-Open the project folder in VS Code and execute:
-
-```bash
-npm install
-```
-
-### Start the server
-
-```bash
-npm start
-```
-
-The server runs at:
-
-```text
-http://localhost:3000
-```
-
-For development with automatic server restart:
-
-```bash
-npm run dev
-```
-
-The SQLite database file `spincycle.db` is created automatically when the application starts for the first time.
-
-## 10. Postman API Testing
-
-Postman is used to send HTTP requests to the Express server and verify API responses.
-
-The Postman collection is available inside the `postman/` directory.
-
-### Testing Procedure
-
-1. Start the server using `npm start`.
-2. Open Postman.
-3. Import `SpinCycle_Bikes.postman_collection.json`.
-4. Select the required request.
-5. Verify the HTTP method and URL.
-6. Add JSON data under Body → raw → JSON when required.
-7. Click Send.
-8. Check the response body and status code.
-
-The project includes testing of bike retrieval, bike creation, bike updates, bike deletion, rental retrieval, and Smart Search.
-
-## 11. Project Screenshots and Demonstration
-
-The following screenshots were captured from the actual project environment and Postman testing.
-
-All screenshots are stored inside the `screenshots/` directory in the main project folder.
-
-### 11.1 Server Running Successfully
-
-**File:** `Home.png`
-
-**What is shown:** The server's root endpoint opened in the browser.
-
-**What it demonstrates:** The Express application is running and responding to incoming requests.
-
-![Server Running](screenshots/Home.png)
-
-### 11.2 Retrieve All Bikes
-
-**File:** `all-bikes.png`
-
-**API Request:**
-
-```http
-GET /bikes
-```
-
-**What is shown:** The bike records retrieved from the SQLite database.
-
-**What it demonstrates:** The GET endpoint successfully retrieves the stored bike information.
-
-![All Bikes](screenshots/all-bikes.png)
-
-### 11.3 Smart Search
-
-**File:** `bike-search.png`
-
-**API Request:**
-
-```http
-GET /bikes?q=bike
-```
-
-**What is shown:** The matching bike records returned by the search request.
-
-**What it demonstrates:** The Smart Search feature can search for matching keywords in bike information.
-
-![Bike Search](screenshots/bike-search.png)
-
-### 11.4 Smart Search — No Matching Results
-
-**File:** `empty-search.png`
-
-**API Request:**
-
-```http
-GET /bikes?q=zzz
-```
-
-**What is shown:** The response when no bike matches the search keyword.
-
-**What it demonstrates:** The API handles unsuccessful searches using HTTP `200`, an empty bike array, and a `Nothing found` message.
-
-![Empty Search](screenshots/empty-search.png)
-
-### 11.5 Retrieve All Rentals
-
-**File:** `all-rentals.png`
-
-**API Request:**
-
-```http
-GET /rentals
-```
-
-**What is shown:** Rental records retrieved from the database.
-
-**What it demonstrates:** The rental retrieval endpoint provides stored rental information.
-
-![All Rentals](screenshots/all-rentals.png)
-
-### 11.6 Joined Rental Details
-
-**File:** `rental-details.png`
-
-**API Request:**
-
-```http
-GET /rentals/details
-```
-
-**What is shown:** Rental information combined with rider names and bike names.
-
-**What it demonstrates:** The SQL JOIN functionality retrieves related information from the riders, bikes, and rentals tables.
-
-![Rental Details](screenshots/rental-details.png)
-
-### 11.7 Add a New Bike
-
-**File:** `add-bike-postman.png`
-
-**HTTP Method:** POST
-
-**API Request:**
-
-```http
-POST /bikes
-```
-
-**Example JSON Body:**
-
-```json
-{
-  "name": "Demo Bike",
-  "type": "Mountain"
-}
-```
-
-**What is shown:** The Postman request used to create a new bike and its response.
-
-**What it demonstrates:** The API can insert a new bike record into the database.
-
-![Add Bike](screenshots/add-bike-postman.png)
-
-### 11.8 Update Bike Details
-
-**File:** `update-bike-postman.png`
-
-**HTTP Method:** PUT
-
-**API Request:**
-
-```http
-PUT /bikes/:id
-```
-
-**Example JSON Body:**
-
-```json
-{
-  "name": "Updated Mountain Bike",
-  "type": "Mountain"
-}
-```
-
-**What is shown:** The Postman request used to update an existing bike.
-
-**What it demonstrates:** The API can modify bike details using the bike's unique ID.
-
-![Update Bike](screenshots/update-bike-postman.png)
-
-### 11.9 Delete a Bike
-
-**File:** `delete-bike-postman.png`
-
-**HTTP Method:** DELETE
-
-**API Request:**
-
-```http
-DELETE /bikes/:id
-```
-
-**What is shown:** The Postman DELETE request and its response.
-
-**What it demonstrates:** The API supports bike deletion. A bike can be deleted only when existing rental records do not reference it.
-
-![Delete Bike](screenshots/delete-bike-postman.png)
-
-**Note:** The API also protects rental history. If a bike is referenced by existing rentals, deletion is rejected with HTTP `409 Conflict`.
-
-## 12. Project Folder Structure
-
-The project is organized into separate folders for database operations, API routes, utilities, Postman testing, and screenshots.
+## Project Structure
 
 ```text
 SpinCycle_Bikes/
-│
-├── .postman/
-│
-├── node_modules/
-│
-├── postman/
-│   ├── collections/
-│   ├── documents/
-│   ├── environments/
-│   ├── flows/
-│   ├── globals/
-│   ├── mocks/
-│   ├── specs/
-│   └── SpinCycle_Bikes.postman_collection.json
-│
-├── screenshots/
-│   ├── add-bike-postman.png
-│   ├── all-bikes.png
-│   ├── all-rentals.png
-│   ├── bike-search.png
-│   ├── delete-bike-postman.png
-│   ├── empty-search.png
-│   ├── Home.png
-│   ├── rental-details.png
-│   └── update-bike-postman.png
-│
 ├── src/
 │   ├── routes/
 │   │   ├── bikes.js
 │   │   ├── riders.js
 │   │   └── rentals.js
-│   │
 │   ├── utils/
 │   │   └── validation.js
-│   │
 │   └── database.js
-│
+├── postman/
+│   └── SpinCycle_Bikes.postman_collection.json
+├── screenshots/
 ├── .gitignore
-├── package-lock.json
 ├── package.json
-├── README.md
+├── package-lock.json
 ├── server.js
-└── spincycle.db
+└── README.md
 ```
 
-### Important Files
+## API Testing
 
-| File | Responsibility |
-|---|---|
-| `server.js` | Initializes the Express server and mounts routes |
-| `src/database.js` | Establishes the SQLite database and tables |
-| `src/routes/bikes.js` | Handles bike-related APIs |
-| `src/routes/riders.js` | Handles rider-related APIs |
-| `src/routes/rentals.js` | Handles rental-related APIs |
-| `src/utils/validation.js` | Contains input validation functions |
-| `postman/` | Contains the Postman collection and supporting files |
-| `screenshots/` | Stores project and API testing screenshots |
-| `package.json` | Contains project scripts and dependencies |
-| `README.md` | Project documentation |
+The Postman collection is available in the `postman/` directory.
 
-## 13. Team Members and Responsibilities
+1. Start the server.
+2. Import the collection into Postman.
+3. Send requests to the required endpoints.
+4. Verify response data and HTTP status codes.
 
-The following role allocation describes the areas assigned for team review and presentation.
+## Screenshots
 
-| Team Member | Responsibility | Main Area to Explain |
+The following screenshots demonstrate the application and API requests.
+
+| Server | All Bikes | Smart Search |
 |---|---|---|
-| Pratik Jadhav | Server setup and routes | Express server, route configuration, HTTP methods and status codes |
-|  Eekshitha Naidu | Database management | SQLite setup, tables, primary keys, foreign keys and relationships |
-| Jahnavi Reddy| REST API endpoints | Bike CRUD, rider APIs, rental creation and retrieval |
-| Rishitha Reddy | Validation and Smart Search | Input validation, error handling and case-insensitive search |
-| Hemanth Kumar | Postman testing and documentation | API testing, Postman collection and README |
+| ![Server](screenshots/Home.png) | ![All Bikes](screenshots/all-bikes.png) | ![Search](screenshots/bike-search.png) |
 
-Each team member should understand the implementation and be prepared to explain their assigned area during the demonstration.
+| Empty Search | All Rentals | Rental Details |
+|---|---|---|
+| ![Empty Search](screenshots/empty-search.png) | ![Rentals](screenshots/all-rentals.png) | ![Rental Details](screenshots/rental-details.png) |
 
-## 14. Learning Outcomes
+| Add Bike | Update Bike | Delete Bike |
+|---|---|---|
+| ![Add Bike](screenshots/add-bike-postman.png) | ![Update Bike](screenshots/update-bike-postman.png) | ![Delete Bike](screenshots/delete-bike-postman.png) |
 
-This project provides practical experience in:
+## Team
 
-1. Developing backend applications using Node.js.
-2. Building REST APIs using Express.js.
-3. Understanding HTTP methods and status codes.
-4. Designing relational databases using SQLite.
-5. Implementing primary keys and foreign keys.
-6. Writing SQL queries and JOIN operations.
-7. Performing CRUD operations.
-8. Implementing input validation.
-9. Handling API errors.
-10. Developing case-insensitive search functionality.
-11. Testing APIs using Postman.
-12. Organizing and documenting a software project.
+| Member | Responsibility |
+|---|---|
+| Pratik Jadhav | Server setup and route configuration |
+| Jahnavi Reddy | SQLite database and relationships |
+| Eekshitha Naidu | REST API endpoints |
+| Rishitha Reddy | Input validation and Smart Search |
+| Hemanth Kumar | Postman testing and documentation |
 
-## 15. Conclusion
+## Assignment Details
 
-SpinCycle Bikes demonstrates how a traditional campus bicycle rental process can be managed using a digital backend application.
+- **Assignment:** Backend Development Fundamentals — Group 3
+- **Assignment ID:** ST-AIDE2A-G03
+- **Theme:** Campus Bike Share
+- **Project:** SpinCycle Bikes
 
-The application provides APIs for managing riders, bikes, and rental records. It also incorporates database relationships, input validation, rental history protection, and the assignment-specific Smart Search feature.
+---
 
-Through this project, the team gained practical exposure to backend development, REST API design, relational database management, SQL JOIN operations, and API testing using Postman.
-
-**Project:** SpinCycle Bikes  
-**Assignment ID:** ST-AIDE2A-G03  
-**Theme:** Campus Bike Share  
-**Technology:** Node.js, Express.js, SQLite
-#   S p i n C y c l e _ B i k e s - G r o u p - a s s i g n m e n t -  
- 
+**Built as a collaborative backend development project.**
