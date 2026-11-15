@@ -10,6 +10,7 @@ A RESTful backend for managing campus bike rentals, riders, and bicycles. Built 
 ![Postman](https://img.shields.io/badge/API%20Testing-FF6C37?style=flat&logo=postman&logoColor=white)
 
 **Assignment ID:** `ST-AIDE2A-G03`
+**Live Deployment Link** https://spincycle-bikes-group-assignment.onrender.com/
 
 ## Overview
 
