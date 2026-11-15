@@ -1,0 +1,244 @@
+{
+  "info": {
+    "name": "SpinCycle Bikes API",
+    "description": "Requests for the ST-AIDE2A-G03 Backend Development Fundamentals assignment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Riders",
+      "item": [
+        {
+          "name": "Create rider",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Asha Rao\",\"email\":\"asha@example.com\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/riders"
+          }
+        },
+        {
+          "name": "Get riders",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/riders"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bikes",
+      "item": [
+        {
+          "name": "Create bike - Roadster",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Bike created with 201', function () { pm.response.to.have.status(201); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Roadster 100\",\"type\":\"Road\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/bikes"
+          }
+        },
+        {
+          "name": "Get all bikes",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/bikes"
+          }
+        },
+        {
+          "name": "Get one bike",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/bikes/1"
+          }
+        },
+        {
+          "name": "Update bike",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"Roadster 100 Pro\",\"type\":\"Mountain\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/bikes/1"
+          }
+        },
+        {
+          "name": "Delete bike",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/bikes/1"
+          }
+        },
+        {
+          "name": "Smart search - lowercase",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Search returns 200', function () { pm.response.to.have.status(200); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/bikes?q=bike"
+          }
+        },
+        {
+          "name": "Smart search - uppercase",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/bikes?q=BIKE"
+          }
+        },
+        {
+          "name": "Smart search - no match",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('No match returns 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response says Nothing found', function () { pm.expect(pm.response.json().message).to.eql('Nothing found'); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/bikes?q=zzz"
+          }
+        },
+        {
+          "name": "Invalid bike input",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"\",\"type\":\"Road\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/bikes"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rentals",
+      "item": [
+        {
+          "name": "Create rental",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"rider_id\":1,\"bike_id\":1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/rentals"
+          }
+        },
+        {
+          "name": "Get rentals",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rentals"
+          }
+        },
+        {
+          "name": "Get joined rental details",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/rentals/details"
+          }
+        },
+        {
+          "name": "Return rental",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/rentals/1/return"
+          }
+        }
+      ]
+    }
+  ]
+}
